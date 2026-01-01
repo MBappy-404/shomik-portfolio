@@ -4,8 +4,8 @@
 
 import ManageProject from "@/components/Dashboard/Projects/ManageProject";
 
-const page = async () => {
-  const res = await fetch("https://portfolio-server-xi-three.vercel.app/api/projects");
+const ManageProjectPage = async () => {
+  const res = await fetch("https://shomik-server.vercel.app/api/projects");
   const data = await res.json();
   
    
@@ -17,4 +17,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default ManageProjectPage;

@@ -1,17 +1,10 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable padding-line-between-statements */
-/* eslint-disable import/order */
-/* eslint-disable prettier/prettier */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable prettier/prettier */
-/* eslint-disable react/jsx-sort-props */
+
 "use client";
 import Link from "next/link";
-import { ThemeSwitch } from "../theme-switch";
+ 
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import ThemeSwitch from "../theme-switch";
 type UserProps = {
   user?: {
     name?: string | null | undefined;
@@ -35,7 +28,7 @@ const Header = ({ session }: { session: UserProps | null }) => {
           <div className="flex items-center justify-end gap-6 ml-auto">
             <div className="flex items-center space-x-6">
               <Link
-                href="https://dev-bappy.vercel.app"
+                href="https://shomikujzaman.vercel.app"
                 target="_blank"
                 className=" w-20 px-2 h-[38px] flex items-center justify-center rounded-lg relative dark:bg-blue-950 bg-blue-200 cursor-pointer"
               >

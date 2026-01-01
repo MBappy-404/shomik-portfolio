@@ -8,8 +8,8 @@ import ProjectsCards from "@/components/ProjectCard/ProjectsCards";
 import { TProject } from "@/types";
 
 /* eslint-disable react/jsx-sort-props */
-const Projects = async () => {
-  const res = await fetch("https://portfolio-server-xi-three.vercel.app/api/projects");
+const ProjectsPage = async () => {
+  const res = await fetch("https://shomik-server.vercel.app/api/projects");
   const data = await res.json();
   return (
     <div className="bg-white dark:bg-gray-950 md:px-5 px-3 py-10">
@@ -23,7 +23,7 @@ const Projects = async () => {
             </div>
           </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-10 gap-5">
-          {data?.data?.map((project : TProject, index : number) => (
+          {data?.data?.slice().reverse()?.map((project : TProject, index : number) => (
             <ProjectsCards project={project} key={index} />
           ))}
         </div>
@@ -32,4 +32,4 @@ const Projects = async () => {
   );
 };
 
-export default Projects;
+export default ProjectsPage;

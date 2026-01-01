@@ -10,8 +10,10 @@
 "use client";
 
 import BlogCard from "@/components/BlogCard/BlogCard";
-import AddBlogsModal from "./AddBlogsModal";
+ 
 import { TBlog } from "@/types";
+import AddBlogsModal from "./AddBlogsModal";
+ 
 
 const ManageBlogs = ({ data } : { data: { data: TBlog[] }}) => {
   return (

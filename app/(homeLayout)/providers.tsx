@@ -20,7 +20,7 @@ declare module "@react-types/shared" {
   }
 }
 
-export function Providers({ children, themeProps }: ProvidersProps) {
+const Providers = ({ children, themeProps }: ProvidersProps) => {
   const router = useRouter();
 
   return (
@@ -28,4 +28,6 @@ export function Providers({ children, themeProps }: ProvidersProps) {
       <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
     </HeroUIProvider>
   );
-}
+};
+
+export default Providers;

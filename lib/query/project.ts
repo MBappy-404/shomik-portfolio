@@ -4,7 +4,7 @@
 
 export async function addProject(formData: FormData) {
   const response = await fetch(
-    "https://portfolio-server-xi-three.vercel.app/api/projects/create-project",
+    "https://shomik-server.vercel.app/api/projects/create-project",
     {
       method: "POST",
       body: formData,
@@ -16,7 +16,7 @@ export async function addProject(formData: FormData) {
 
 export async function updateProject(formData: FormData, projectId: string) {
   const response = await fetch(
-    `https://portfolio-server-xi-three.vercel.app/api/projects/${projectId}`,
+    `https://shomik-server.vercel.app/api/projects/${projectId}`,
     {
       method: "PUT",
       body: formData,
@@ -28,7 +28,7 @@ export async function updateProject(formData: FormData, projectId: string) {
 
 export async function deleteProject(projectId: string) {
   const response = await fetch(
-    `https://portfolio-server-xi-three.vercel.app/api/projects/${projectId}`,
+    `https://shomik-server.vercel.app/api/projects/${projectId}`,
     {
       method: "DELETE",
     }
@@ -37,7 +37,7 @@ export async function deleteProject(projectId: string) {
   return data;
 }
 export async function addBlog(formData: FormData) {
-  const response = await fetch("https://portfolio-server-xi-three.vercel.app/api/blogs/create-blog", {
+  const response = await fetch("https://shomik-server.vercel.app/api/blogs/create-blog", {
     method: "POST",
     body: formData,
     credentials: "include", 
@@ -48,7 +48,7 @@ export async function addBlog(formData: FormData) {
 }
 
 export async function updateBlog(formData: FormData, blogId: string) {
-  const response = await fetch(`https://portfolio-server-xi-three.vercel.app/api/blogs/${blogId}`, {
+  const response = await fetch(`https://shomik-server.vercel.app/api/blogs/${blogId}`, {
     method: "PUT",
     body: formData,
   });
@@ -57,7 +57,7 @@ export async function updateBlog(formData: FormData, blogId: string) {
 }
 
 export async function deleteBlog(id: string) {
-  const response = await fetch(`https://portfolio-server-xi-three.vercel.app/api/blogs/${id}`, {
+  const response = await fetch(`https://shomik-server.vercel.app/api/blogs/${id}`, {
     method: "DELETE",
   });
   const data = await response.json();
@@ -66,7 +66,7 @@ export async function deleteBlog(id: string) {
 
 export async function addMessage(message : any) {
   const response = await fetch(
-    "https://portfolio-server-xi-three.vercel.app/api/message/create-message",
+    "https://shomik-server.vercel.app/api/message/create-message",
     {
       method: "POST",
       headers: {
@@ -79,7 +79,7 @@ export async function addMessage(message : any) {
   return data;
 }
 export async function getALlMessage() {
-  const response = await fetch("https://portfolio-server-xi-three.vercel.app/api/message", {
+  const response = await fetch("https://shomik-server.vercel.app/api/message", {
     method: "GET",
   });
   const data = await response.json();
@@ -87,7 +87,7 @@ export async function getALlMessage() {
 }
 
 export async function createAdmin(adminData: any) {
-  const response = await fetch("https://portfolio-server-xi-three.vercel.app/api/admin/create-admin", {
+  const response = await fetch("https://shomik-server.vercel.app/api/admin/create-admin", {
     method: "POST",
      headers: {
         "Content-Type": "application/json",

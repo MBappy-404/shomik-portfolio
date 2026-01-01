@@ -2,7 +2,7 @@
 import { TMessage } from "@/types";
 
 /* eslint-disable prettier/prettier */
-export default function ContactMessages({ messages }: {messages: TMessage[]}) {
+const ContactMessages = ({ messages }: {messages: TMessage[]}) => {
   return (
     <div className="max-w-full mx-auto bg-white shadow-lg border border-gray-200 rounded-lg p-3 md:p-5 dark:bg-gray-950 dark:border-gray-700">
       <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100">
@@ -47,3 +47,5 @@ export default function ContactMessages({ messages }: {messages: TMessage[]}) {
     </div>
   );
 }
+
+export default ContactMessages;

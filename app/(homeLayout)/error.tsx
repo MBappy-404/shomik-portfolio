@@ -2,16 +2,10 @@
 
 import { useEffect } from "react";
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error;
-  reset: () => void;
-}) {
+const ErrorPage = ({ error, reset }: { error: Error; reset: () => void }) => {
   useEffect(() => {
     // Log the error to an error reporting service
-    /* eslint-disable no-console */
+    // eslint-disable-next-line no-console
     console.error(error);
   }, [error]);
 
@@ -19,13 +13,12 @@ export default function Error({
     <div>
       <h2>Something went wrong!</h2>
       <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
+        onClick={() => reset()}
       >
         Try again
       </button>
     </div>
   );
-}
+};
+
+export default ErrorPage;

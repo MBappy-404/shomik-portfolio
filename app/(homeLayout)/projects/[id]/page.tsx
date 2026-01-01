@@ -1,115 +1,185 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable import/order */
-/* eslint-disable prettier/prettier */
-/* eslint-disable react/jsx-no-target-blank */
-/* eslint-disable prettier/prettier */
-/* eslint-disable react/jsx-sort-props */
-/* eslint-disable padding-line-between-statements */
-/* eslint-disable prettier/prettier */
-/* eslint-disable react/self-closing-comp */
+"use client";
 
-import { Button } from "@heroui/button";
-
+import { useState, useEffect } from "react";
 import Image from "next/image";
-type Params = Promise<{ id: string }>;
-const page = async ({ params }: { params: Params }) => {
-  const { id } = await params;
-  const res = await fetch(
-    `https://portfolio-server-xi-three.vercel.app/api/projects/${id}`
-  );
-  const data = await res.json();
-  //   console.log(data);
-  const project = data?.data;
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ArrowLeft, Github, ExternalLink, Calendar, Clock } from "lucide-react";
+import { format } from "date-fns";
+
+const ProjectDetailsPage = () => {
+  const params = useParams();
+  const projectId = params?.id as string;
+  const [project, setProject] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`https://shomik-server.vercel.app/api/projects/${projectId}`);
+        if (!res.ok) {
+          throw new Error(`Failed to fetch project: ${res.status}`);
+        }
+        const data = await res.json();
+        setProject(data?.data);
+      } catch (err: any) {
+        setError(err.message || "An error occurred while fetching project.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (projectId) {
+      fetchProject();
+    }
+  }, [projectId]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-4">
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-muted-foreground text-sm">Loading project details...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <p className="text-red-500">{error}</p>
+          <Link href="/portfolio">
+            <Button variant="outline" className="gap-2">
+              <ArrowLeft className="w-4 h-4" />
+              Back to Portfolio
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (!project) {
+    return (
+      <div className="min-h-screen flex items-center justify-center pt-16">
+        <div className="text-center space-y-4">
+          <p className="text-muted-foreground">Project not found</p>
+          <Link href="/portfolio">
+            <Button variant="outline" className="gap-2">
+              <ArrowLeft className="w-4 h-4" />
+              Back to Portfolio
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="bg-white dark:bg-gray-950 md:px-5 px-2 pt-5 pb-10 ">
-      <div className="bg-gray-100 dark:bg-gray-800 rounded-md flex justify-center flex-col items-start mx-auto max-w-[1100px] p-2 md:p-5">
-        <div className="w-full">
-          <Image
-            src={project.projectImage}
-            alt={project.projectName}
-            className="rounded-md border border-gray-200 dark:border-gray-700 w-full"
-            placeholder="blur"
-            blurDataURL="/data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII="
-            layout="responsive"
-            width={1300}
-            height={500}
-          />
+    <div className="min-h-screen bg-gradient-to-b from-background to-muted/30 pt-10 md:pt-16">
+      <div className="container mx-auto px-4 py-8 md:py-12">
+        {/* Back Button */}
+        <div className="mb-8">
+          <Link href="/portfolio">
+            <Button variant="ghost" className="gap-2 hover:bg-muted">
+              <ArrowLeft className="w-4 h-4" />
+              Back to Portfolio
+            </Button>
+          </Link>
         </div>
-        <div className="md:px-2">
-          <div>
-            <h2 className="text-xl md:text-3xl pt-4 font-bold text-gray-800 dark:text-white mb-2">
+
+        {/* Project Header */}
+        <div className="rounded-2xl overflow-hidden mb-8">
+          <div className="relative aspect-video md:aspect-[21/9]">
+            <Image
+              src={project.projectImage}
+              alt={project.projectName}
+              fill
+              className="object-cover border-4 dark:border-gray-800/50 rounded-xl transition-all duration-300 border-primary/20"
+              priority
+            />
+          </div>
+          <div className="p-6 md:p-8">
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              {project.category && (
+                <Badge variant="secondary" className="text-sm">
+                  {project.category}
+                </Badge>
+              )}
+              {project.createdAt && (
+                <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                  <Calendar className="w-4 h-4" />
+                  {format(new Date(project.createdAt), "MMMM d, yyyy")}
+                </div>
+              )}
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">
               {project.projectName}
-            </h2>
-            <p className="text-justify text-sm md:text-base lg:text-lg text-gray-600 dark:text-gray-400">
+            </h1>
+            <p className="text-sm md:text-base 2xl:text-lg text-muted-foreground mb-6">
               {project.projectDescription}
             </p>
-          </div>
-          <div>
-            <h2 className="text-xl md:text-3xl pt-2 font-bold text-gray-800 dark:text-white mb-2">
-              Technologies
-            </h2>
-            <div className="flex flex-wrap">
-              {project.technologies?.map((tech: string, index: number) => (
-                <div
-                  key={index}
-                  className="  my-[8px] mr-2 flex flex-wrap rounded-full cursor-pointer items-center justify-between   bg-gray-300 text-sm md:text-base xl:text-lg  dark:bg-gray-600 dark:bg-opacity-45 px-4 py-1.5 text-[13px]    text-gray-800 dark:text-white shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none "
+            {/* Only show project.link if present */}
+            {project.link && (
+              <div className="mb-6">
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-muted hover:bg-primary/10 text-primary font-medium transition-colors border border-primary/20"
                 >
-                  {tech}
-                </div>
-              ))}
-            </div>
+                  <ExternalLink className="w-4 h-4" />
+                  Link
+                </a>
+              </div>
+            )}
           </div>
-          <div>
-            <h2 className="text-xl md:text-3xl pt-2 font-bold text-gray-800 dark:text-white mb-2">
-              Links
-            </h2>
-            <div className="flex flex-wrap items-center self-center justify-start gap-5 mt-4">
-              <div>
-                <a target="_blank" href={project?.liveProjectLink}>
-                  <Button
-                    as={"div"}
-                    className="  text-sm md:text-base text-gray-900 dark:text-gray-100 px-4"
-                    color="primary"
-                    radius="sm"
-                    variant="flat"
+        </div>
+
+        {/* Main Content Only: Features and Technologies if present */}
+        <div className="space-y-8">
+          {/* Features Section */}
+          {project.features && project.features.length > 0 && (
+            <div className="bg-card rounded-xl p-6 shadow-lg">
+              <h2 className="text-2xl font-bold mb-4">Key Features</h2>
+              <ul className="space-y-3">
+                {project.features.map((feature: string, index: number) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <div className="w-2 h-2 rounded-full bg-primary mt-2" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Technologies Section */}
+          {project.technologies && project.technologies.length > 0 && (
+            <div className="bg-card rounded-xl p-6 shadow-lg">
+              <h2 className="text-2xl font-bold mb-4">Technologies Used</h2>
+              <div className="flex flex-wrap gap-3">
+                {project.technologies.map((tech: string, index: number) => (
+                  <Badge
+                    key={index}
+                    variant="secondary"
+                    className="px-3 py-1 text-sm"
                   >
-                    Live Preview
-                  </Button>
-                </a>
-              </div>
-              <div>
-                <a target="_blank" href={project?.frontendGitHubLink}>
-                  <Button
-                    as={"div"}
-                    className=" text-sm md:text-base text-gray-900 dark:text-gray-100 px-4"
-                    color="primary"
-                    radius="sm"
-                    variant="flat"
-                  >
-                    Frontend Code
-                  </Button>
-                </a>
-              </div>
-              <div>
-                <a target="_blank" href={project?.backendGitHubLink}>
-                  <Button
-                    as={"div"}
-                    className=" text-sm md:text-base text-gray-900 dark:text-gray-100 px-4"
-                    color="primary"
-                    radius="sm"
-                    variant="flat"
-                  >
-                    Backend Code
-                  </Button>
-                </a>
+                    {tech}
+                  </Badge>
+                ))}
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default page;
+export default ProjectDetailsPage;

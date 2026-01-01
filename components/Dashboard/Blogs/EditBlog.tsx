@@ -23,7 +23,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import TextEditor from "./TextEditor";
 
-export default function EditBlogsModal({
+const  EditBlogsModal =({
   blog,
   isOpen,
   onOpenChange,
@@ -33,7 +33,7 @@ export default function EditBlogsModal({
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
   onClose: () => void;
-}) {
+}) =>{
   const { handleSubmit, register, reset } = useForm();
   const [content, setContent] = useState("");
   const router = useRouter();
@@ -49,8 +49,9 @@ export default function EditBlogsModal({
        setContent(blog.description || "");
     }
   }, [blog, reset]);
-  const upload_preset = "my-portfolio";
-  const cloud_name = "dquplidvy";
+ 
+  const upload_preset = "ml_default";
+  const cloud_name = "dma4usxh0";
 
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     const toastId = toast.loading("Updating Blog", { duration: Infinity });
@@ -93,7 +94,7 @@ export default function EditBlogsModal({
     }
 
     const blogData = {
-      author: "Saroar Jahan",
+      author: "Shomik Ujzaman",
       title: formData.title,
       category: formData.category,
       description: finalContent,
@@ -188,3 +189,5 @@ export default function EditBlogsModal({
     </>
   );
 }
+
+export default EditBlogsModal;

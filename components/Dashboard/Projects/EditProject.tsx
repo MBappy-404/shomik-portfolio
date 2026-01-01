@@ -28,81 +28,43 @@ import {
 } from "react-hook-form";
 import { toast } from "sonner";
 
-export const technologies = [
-  { key: "HTML", label: "HTML" },
-  { key: "CSS", label: "CSS" },
-  { key: "JavaScript", label: "JavaScript" },
-  { key: "JQuery", label: "JQuery" },
-  { key: "Swiper", label: "Swiper" },
-  { key: "TypeScript", label: "TypeScript" },
-  { key: "Bootstrap", label: "Bootstrap" },
-  { key: "Tailwind CSS", label: "Tailwind CSS" },
-  { key: "React JS", label: "React JS" },
-  { key: "Next JS", label: "Next JS" },
-  { key: "Ant Design", label: "Ant Design" },
-  { key: "Node.js", label: "Node.js" },
-  { key: "Express.js", label: "Express.js" },
-  { key: "MongoDB", label: "MongoDB" },
-  { key: "Prisma", label: "Prisma" },
-  { key: "Firebase", label: "Firebase" },
-  { key: "Next Auth", label: "Next Auth" },
-  { key: "Vercel", label: "Vercel" },
-  { key: "SweetAlert", label: "SweetAlert" },
-  { key: "Sooner", label: "Sooner" },
-  { key: "Moment Js", label: "Moment.js" },
-  { key: "Soket.io", label: "Soket.io" },
-  { key: "Hot Toast", label: "Hot Toast" },
-  { key: "Toastify", label: "Toastify" },
-  { key: "Stripe", label: "Stripe" },
-  { key: "Shurjo Pay", label: "Shurjo Pay" },
+const category = [
+  { key: "SEO", label: "SEO" },
+  { key: "Content", label: "Content" },
+  { key: "Visual", label: "Visual" },
 ];
 
-const categories = [
-  { key: "fullstack", label: "Fullstack" },
-  { key: "UX/UI", label: "UX/UI" },
-  { key: "Inventory", label: "Inventory" },
-  { key: "Uncategorized", label: "Uncategorized" },
-   
-];
 interface EditProjectModalProps {
   project: TProject;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   onClose: () => void;
-   
 }
 
-export default function EditProjectModal({
+const EditProjectModal = ({
   project,
   isOpen,
   onOpenChange,
   onClose,
-}: EditProjectModalProps) {
+}: EditProjectModalProps) => {
   const router = useRouter();
-  const { control, register, reset, handleSubmit, watch } = useForm<FieldValues>({
-    defaultValues: {
-      projectName: "",
-      frontendGitHubLink: "",
-      backendGitHubLink: "",
-      liveProjectLink: "",
-      technologies: [],
-      category: "uncategorized",
-      featured: false,
-      projectDescription: "",
-      projectImage: null,
-    },
-  });
+  const { control, register, reset, handleSubmit, watch } =
+    useForm<FieldValues>({
+      defaultValues: {
+        projectName: "",
+        link: "",
+        category: "uncategorized",
+        projectDescription: "",
+        projectImage: null,
+      },
+    });
 
   useEffect(() => {
     if (project) {
       reset({
         projectName: project.projectName,
-        frontendGitHubLink: project.frontendGitHubLink,
-        backendGitHubLink: project.backendGitHubLink,
-        liveProjectLink: project.liveProjectLink,
-        technologies: project.technologies,
+        link: project.link,
         category: project.category || "uncategorized",
-        featured: project.featured || false,
         projectDescription: project.projectDescription,
         projectImage: project.projectImage || null,
       });
@@ -117,14 +79,13 @@ export default function EditProjectModal({
         ...data,
         technologies: data.technologies,
       };
-      
+
       formData.append("data", JSON.stringify(payload));
       if (data.projectImage?.[0]) {
         formData.append("file", data.projectImage[0]);
       }
 
       console.log(data.projectImage);
-      
 
       const res = await updateProject(formData, project._id);
       if (res?.success) {
@@ -166,49 +127,13 @@ export default function EditProjectModal({
               </div>
 
               {/* GitHub + Live Links */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input
-                  {...register("frontendGitHubLink", { required: true })}
-                  placeholder="Frontend GitHub Link"
+                  {...register("link", { required: true })}
+                  placeholder="link"
                   className="w-full rounded-md py-3 px-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm outline-none border border-gray-300 dark:border-gray-800 focus:bg-gray-50 dark:focus:border-gray-700"
-                />
-                <input
-                  {...register("backendGitHubLink")}
-                  placeholder="Backend GitHub Link"
-                  className="w-full rounded-md py-3 px-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm outline-none border border-gray-300 dark:border-gray-800 focus:bg-gray-50 dark:focus:border-gray-700"
-                />
-                <input
-                  {...register("liveProjectLink")}
-                  placeholder="Live Project Link"
-                  className="w-full rounded-md py-3 px-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm outline-none border border-gray-300 dark:border-gray-800 focus:bg-gray-50 dark:focus:border-gray-700"
-                />
-              </div>
-
-              {/* Tech / Category / Featured */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {/* Technologies */}
-                <Controller
-                  control={control}
-                  name="technologies"
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      placeholder="Select Technologies"
-                      selectionMode="multiple"
-                      selectedKeys={new Set(value)}
-                      onSelectionChange={(keys) => onChange(Array.from(keys))}
-                      classNames={{
-                        base: "w-full rounded-md bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm outline-none border border-gray-300 dark:border-gray-800 focus:ring-2 focus:ring-purple-500",
-                        selectorIcon: "text-gray-500 dark:text-gray-400",
-                      }}
-                    >
-                      {technologies.map((tech) => (
-                        <SelectItem key={tech.key}>{tech.label}</SelectItem>
-                      ))}
-                    </Select>
-                  )}
                 />
 
-                {/* Category */}
                 <Controller
                   control={control}
                   name="category"
@@ -217,38 +142,24 @@ export default function EditProjectModal({
                       placeholder="Select Category"
                       selectionMode="single"
                       selectedKeys={new Set([value])}
-                      onSelectionChange={(keys) => 
-                        onChange(keys instanceof Set ? Array.from(keys)[0] : "")
-                      }
-                    >
-                      {categories.map((cat:any) => (
-                        <SelectItem key={cat.key}>{cat.label}</SelectItem>
-                      ))}
-                    </Select>
-                  )}
-                />
-
-                {/* Featured */}
-                <Controller
-                  control={control}
-                  name="featured"
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      placeholder="Is Featured?"
-                      selectionMode="single"
-                      selectedKeys={new Set([value ? "yes" : "no"])}
-                      onSelectionChange={(keys) =>
-                        onChange(Array.from(keys)[0] === "yes")
+                      onSelectionChange={(keys: SharedSelection) =>
+                        onChange(Array.from(keys)[0] || "")
                       }
                       classNames={{
                         base: "w-full rounded-md bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm outline-none border border-gray-300 dark:border-gray-800 focus:ring-2 focus:ring-purple-500",
                       }}
                     >
-                      <SelectItem key="yes">Yes</SelectItem>
-                      <SelectItem key="no">No</SelectItem>
+                      {category.map((cat) => (
+                        <SelectItem key={cat.key}>{cat.label}</SelectItem>
+                      ))}
                     </Select>
                   )}
                 />
+              </div>
+
+              {/* Tech / Category / Featured */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Category */}
               </div>
 
               {/* Description */}
@@ -270,4 +181,6 @@ export default function EditProjectModal({
       </ModalContent>
     </Modal>
   );
-}
+};
+
+export default EditProjectModal;

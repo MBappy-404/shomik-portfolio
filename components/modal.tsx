@@ -59,7 +59,7 @@ export const LockIcon = (props: any) => {
   );
 };
 
-export default function SignInModal({ session }: { session: any }) {
+const SignInModal = ({ session }: { session: any }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
@@ -87,7 +87,6 @@ export default function SignInModal({ session }: { session: any }) {
       )}
 
       <Modal
-        
         backdrop="blur"
         isOpen={isOpen}
         placement="center"
@@ -123,4 +122,6 @@ export default function SignInModal({ session }: { session: any }) {
       </Modal>
     </>
   );
-}
+};
+
+export default SignInModal;

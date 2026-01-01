@@ -18,20 +18,24 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
 import { fontSans } from "@/config/fonts";
 
-import { Providers } from "@/app/(homeLayout)/providers";
+
 import Dashboard from "@/components/Dashboard/Dashboard";
 import { Toaster } from "sonner";
+import Providers from "@/app/(homeLayout)/providers";
 
 export const metadata: Metadata = {
-  title: "SJ Bappy",
-  description: "This is Bappy Portfolio",
+  title: "Shomik Ujzaman | SEO Expert",
+  description:
+    "I'm a Creative Content Creator, SEO Specialist, and Visual Storyteller. I blend SEO strategy with visual creativity to help brands stand out in search and social.",
+  metadataBase: new URL("https://shomikujzaman.vercel.app"),
+
 };
 
-export default async function RootLayout({
+const RootLayout = async ({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}) => {
   const session = await getServerSession(authOptions);
   return (
     <html suppressHydrationWarning lang="en">
@@ -59,3 +63,5 @@ export default async function RootLayout({
     </html>
   );
 }
+
+export default RootLayout

@@ -563,7 +563,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
   );
 };
 
-export default function TextEditor({ content, setContent }: Props) {
+const TextEditor = ({ content, setContent }: Props) => {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({ heading: false }),
@@ -618,3 +618,5 @@ export default function TextEditor({ content, setContent }: Props) {
     </div>
   );
 }
+
+export default TextEditor;

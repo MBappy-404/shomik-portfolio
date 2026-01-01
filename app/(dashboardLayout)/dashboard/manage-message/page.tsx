@@ -6,7 +6,7 @@ import ContactMessages from "@/components/Dashboard/Message/MessageCard";
 import { getALlMessage } from "@/lib/query/project";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-const page = async () => {
+const ManageMessagePage = async () => {
   const messages = await getALlMessage();
   // console.log(messages);
   
@@ -17,4 +17,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default ManageMessagePage;

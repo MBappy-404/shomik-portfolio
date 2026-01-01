@@ -13,6 +13,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaEnvelopeOpenText, FaTable } from "react-icons/fa6";
 import { FaListAlt } from "react-icons/fa";
+import { UploadCloudIcon } from "lucide-react";
 
 const Sidebar = ({ open }: { open: boolean }) => {
   const pathname = usePathname();
@@ -31,6 +32,11 @@ const Sidebar = ({ open }: { open: boolean }) => {
       title: "Manage Messages",
       link: "/dashboard/manage-message",
       icon: <FaEnvelopeOpenText className="md:text-[18px] dark:text-gray-200 text-gray-500 mr-2" />,
+    },
+    {
+      title: "Upload Profile",
+      link: "/dashboard/upload-profile",
+      icon: <UploadCloudIcon className="md:text-[18px] dark:text-gray-200 text-gray-500 mr-2" />,
     },
   ];
 

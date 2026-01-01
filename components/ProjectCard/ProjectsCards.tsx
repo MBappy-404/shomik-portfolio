@@ -51,18 +51,20 @@ const ProjectsCards = ({ project }: { project: TProject }) => {
       <div className="bg-white border border-gray-200 dark:border-gray-700 dark:bg-gray-800 cursor-pointer rounded overflow-hidden shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] relative  ">
         <div className="p-2 rounded-md ">
           <img
-            src={project.projectImage}
+            src={project?.projectImage}
             alt="Blog Post 1"
             className="w-full h-60 border border-gray-200 dark:border-gray-700 rounded-md object-cover"
           />
         </div>
         <div className="px-5 py-4">
           <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200">
-            {project.projectName}
+            {project?.projectName}
           </h3>
           <hr className="my-3  border-t border-gray-300 dark:border-gray-600 " />
           <p className="text-gray-400 dark:text-gray-400  md:text-base text-sm">
-            {project.projectDescription.slice(0, 120)}....
+            {project?.projectDescription?.length > 120
+              ? project?.projectDescription?.slice(0, 120) + "...."
+              : project?.projectDescription}
           </p>
           {pathname === "/dashboard/manage-projects" ? (
             <div className="flex justify-between mt-4">
@@ -88,7 +90,7 @@ const ProjectsCards = ({ project }: { project: TProject }) => {
             <div className="mt-3">
               <div>
                 <Button
-                  onPress={() => router.push(`/projects/${project._id}`)}
+                  onPress={() => router.push(`/projects/${project?._id}`)}
                   as={"div"}
                   className="mt-2 text-base text-gray-900 dark:text-gray-100 px-4"
                   color="primary"

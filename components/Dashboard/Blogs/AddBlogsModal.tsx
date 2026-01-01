@@ -19,17 +19,19 @@ import {
 } from "@heroui/modal";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import TextEditor from "./TextEditor";
+ 
 import { useRouter } from "next/navigation";
+import TextEditor from "./TextEditor";
+ 
 
-export default function AddBlogsModal() {
+const AddBlogsModal = () => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [content, setContent] = useState("");
   const router = useRouter();
   const { handleSubmit, register, reset, setValue } = useForm();
 
-  const upload_preset = "my-portfolio";
-  const cloud_name = "dquplidvy";
+  const upload_preset = "ml_default";
+  const cloud_name = "dma4usxh0";
 
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     const toastId = toast.loading("Adding Blog", { duration: Infinity });
@@ -72,7 +74,7 @@ export default function AddBlogsModal() {
     }
 
     const blogData = {
-      author: "Saroar Jahan",
+      author: "Shomik Ujzaman",
       title: formData.title,
       category: formData.category,
       description: finalContent,
@@ -173,3 +175,5 @@ export default function AddBlogsModal() {
     </>
   );
 }
+
+export default AddBlogsModal;

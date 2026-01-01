@@ -4,8 +4,8 @@
 
 import ManageBlogs from "@/components/Dashboard/Blogs/ManageBlogs";
 
-const page = async () => {
-  const res = await fetch("https://portfolio-server-xi-three.vercel.app/api/blogs");
+const ManageBlogsPage = async () => {
+  const res = await fetch("https://shomik-server.vercel.app/api/blogs");
   const data = await res.json();
   return (
     <div>
@@ -14,4 +14,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default ManageBlogsPage;

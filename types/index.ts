@@ -21,12 +21,8 @@ export type TProject = {
   _id: string;
   projectName: string;
   projectImage: string;
-  frontendGitHubLink: string;
-  backendGitHubLink: string;
-  liveProjectLink: string;
-  technologies: string[];
+  link: string;
   category: string;
-  featured: string;
   projectDescription: string;
   createdAt: string;
   updatedAt: string;

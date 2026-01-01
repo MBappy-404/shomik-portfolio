@@ -17,4 +17,171 @@
     animation: subtleColorShift 6s infinite alternate ease-in-out;
   }
    */
-  
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Gradient text animation */
+@keyframes gradient {
+  0%,
+  100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+}
+
+/* Animation utilities */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Floating button animations */
+.floating-enter {
+  animation: floating-enter 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes floating-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.floating-exit {
+  animation: floating-exit 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+@keyframes floating-exit {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+}
+
+.floating-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.floating-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.floating-button:active {
+  transform: translateY(0);
+  transition: transform 0.1s;
+}
+
+
+
+
+/* Add to a global CSS file like index.css or blog.module.css */
+.blog-content h1 {
+  @apply text-xl md:text-3xl font-bold mb-4 mt-8;
+}
+
+.blog-content h2 {
+  @apply text-lg md:text-2xl font-semibold mb-4 mt-6;
+}
+
+.blog-content h3 {
+  @apply text-lg md:text-xl font-semibold mb-3 mt-5;
+}
+
+.blog-content h4 {
+  @apply text-lg md:text-xl font-semibold mb-3 mt-4;
+}
+
+.blog-content p {
+  @apply text-base md:text-lg leading-relaxed mb-4;
+}
+
+.blog-content ul {
+  @apply list-disc pl-6 mb-4;
+}
+
+.blog-content ol {
+  @apply list-decimal pl-6 mb-4;
+}
+
+.blog-content li {
+  @apply mb-2 leading-relaxed;
+}
+
+.blog-content strong {
+  @apply font-semibold;
+}
+
+.blog-content em {
+  @apply italic;
+}
+
+.blog-content hr {
+  @apply my-8 border-t border-gray-300 dark:border-gray-600;
+}
+
+.blog-content img {
+  @apply w-full h-auto rounded-md my-6 shadow;
+}
+
+.blog-content a {
+  @apply text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 transition;
+}
+
+.blog-content blockquote {
+  @apply border-l-4 border-gray-400 dark:border-gray-600 pl-4 italic text-gray-600 dark:text-gray-400 my-6;
+}

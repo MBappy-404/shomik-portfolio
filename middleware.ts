@@ -7,12 +7,12 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
-export function middleware(req: NextRequest) {
+const middleware = (req: NextRequest) => {
   // read the "user" cookie
   const userEmail = req.cookies.get("user")?.value
 
   // only allow sara0810@gmail.com
-  if (userEmail !== "sadikulsad0810@gmail.com") {
+  if (userEmail !== "shomikujzaman@gmail.com") {
     const loginUrl = req.nextUrl.clone()
     loginUrl.pathname = "/login"
     return NextResponse.redirect(loginUrl)
@@ -21,8 +21,10 @@ export function middleware(req: NextRequest) {
   return NextResponse.next()
 }
 
+export default middleware
+
 export const config = {
-  matcher: ['/',"/dashboard/:path*", "/dashboard"],
+  matcher: ["/dashboard/:path*", "/dashboard"],
 }
 
 

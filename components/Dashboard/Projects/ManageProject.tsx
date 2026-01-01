@@ -9,10 +9,12 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable prettier/prettier */
 
-import AddProjectModal from "./AddProjectModal";
+ 
 
 import ProjectsCards from "@/components/ProjectCard/ProjectsCards";
 import { TProject } from "@/types";
+import AddProjectModal from "./AddProjectModal";
+ 
 
 const ManageProject = ({ data }: { data: { data: TProject[] } }) => {
   // console.log(data);
