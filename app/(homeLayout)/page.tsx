@@ -9,9 +9,6 @@ import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import PageTransition from "@/components/page-transition"
-import FloatingElements from "@/components/floating-elements"
-import SocialLinks from "@/components/social-links"
-import FloatingAnimation from "@/components/floating-animation"
 import ParallaxSection from "@/components/parallax-section"
 import ScrollAnimation from "@/components/scroll-animation"
 import AnimatedCounter from "@/components/animated-counter"
@@ -139,8 +136,8 @@ const Home = () => {
       <div className="min-h-screen flex flex-col  overflow-hidden">
         <main className="flex-1">
           {/* Hero Section */}
-          <Hero/>
- 
+          <Hero />
+
           {/* Stats Section */}
           <ParallaxSection speed={0.3}>
             <section ref={statsRef} className="py-20 bg-muted/30 dark:bg-muted/10 flex justify-center">
@@ -407,7 +404,7 @@ const Home = () => {
                     year: "2023",
                     image: "/Increase-SEO-Traffic.png",
                     color: "from-green-500 to-emerald-500",
-                    link:"https://www.coursera.org/account/accomplishments/verify/MBJPFI93GZOZ"
+                    link: "https://www.coursera.org/account/accomplishments/verify/MBJPFI93GZOZ"
                   },
                   {
                     title: "Google Technical Support",
@@ -421,7 +418,7 @@ const Home = () => {
                 ].map((cert, idx) => (
                   <ScrollAnimation key={idx} animation="scale" delay={idx * 0.15}>
                     <Link href={cert?.link} target="_blank"
-                     
+
                       className="group block relative rounded-2xl overflow-hidden bg-background border border-muted dark:border-gray-700 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl cursor-pointer"
                     >
                       {/* Gradient Overlay */}

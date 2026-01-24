@@ -1,22 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin './hero.ts';
+@custom-variant dark (&:is(.dark *));
+/* Note: You may need to change the path to fit your project structure */
+@source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+@source "../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}";
 
-/* @keyframes subtleColorShift {
-    0% {
-      background-position: 0% 50%;
-    }
-    100% {
-      background-position: 100% 50%;
-    }
-  }
-  
-  .animated-overlay {
-    background: linear-gradient(120deg, rgba(4, 40, 104, 0.5), rgba(4, 40, 104, 0.1));
-    background-size: 200% 200%;
-    animation: subtleColorShift 6s infinite alternate ease-in-out;
-  }
-   */
 
 html {
   scroll-behavior: smooth;
@@ -24,11 +12,13 @@ html {
 
 /* Gradient text animation */
 @keyframes gradient {
+
   0%,
   100% {
     background-size: 200% 200%;
     background-position: left center;
   }
+
   50% {
     background-size: 200% 200%;
     background-position: right center;
@@ -45,10 +35,12 @@ html {
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -59,10 +51,12 @@ html {
 }
 
 @keyframes pulse {
+
   0%,
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
@@ -76,6 +70,7 @@ html {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -91,6 +86,7 @@ html {
     opacity: 0;
     transform: scale(0.8) translateY(20px);
   }
+
   100% {
     opacity: 1;
     transform: scale(1) translateY(0);
@@ -106,6 +102,7 @@ html {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
+
   100% {
     opacity: 0;
     transform: scale(0.8) translateY(20px);

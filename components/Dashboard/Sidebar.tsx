@@ -12,12 +12,17 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaEnvelopeOpenText, FaTable } from "react-icons/fa6";
-import { FaListAlt } from "react-icons/fa";
+import { FaHome, FaListAlt } from "react-icons/fa";
 import { UploadCloudIcon } from "lucide-react";
 
 const Sidebar = ({ open }: { open: boolean }) => {
   const pathname = usePathname();
   const sidebarItems = [
+    {
+      title: "Back Home",
+      link: "/",
+      icon: <FaHome className="md:text-[18px] dark:text-gray-200 text-gray-500 mr-2" />,
+    },
     {
       title: "Manage Projects",
       link: "/dashboard/manage-projects",

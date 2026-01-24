@@ -1,11 +1,11 @@
 "use client";
 
- 
+
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
- 
+
 import { usePathname } from "next/navigation";
 import ThemeSwitch from "./theme-switch";
 import cn from "@/lib/utils";
@@ -20,7 +20,7 @@ const Navbar = () => {
       name: "Home",
       pathname: "/",
     },
- 
+
     {
       name: "About",
       pathname: "/about",
@@ -64,13 +64,13 @@ const Navbar = () => {
         className={cn(
           "fixed top-0 left-0 right-0 z-40 transition-all duration-500",
           scrollY > 50
-            ? "bg-background/80 backdrop-blur-sm border-b dark:border-none dark:shadow-md dark:shadow-gray-700 border-border/40 py-4"
+            ? "bg-background/80 backdrop-blur-sm border-b dark:border-none dark:shadow-md dark:shadow-gray-700 border-gray-300 py-4"
             : "py-6"
         )}
       >
         <div className="container mx-auto px-4 flex justify-between items-center">
           <Link href="/" className="text-xl font-bold relative group">
-            
+
             <span className="text-[#773fd8]">Shomik</span>
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#6c2bd9] transition-all duration-300 group-hover:w-full"></span>
           </Link>
