@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react"
 import { ArrowRight, Play, Star, Users, Award, TrendingUp, MousePointer, X } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -12,12 +11,8 @@ import PageTransition from "@/components/page-transition"
 import FloatingElements from "@/components/floating-elements"
 import SocialLinks from "@/components/social-links"
 import FloatingAnimation from "@/components/floating-animation"
-import ParallaxSection from "@/components/parallax-section"
-import ScrollAnimation from "@/components/scroll-animation"
-import AnimatedCounter from "@/components/animated-counter"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -26,8 +21,8 @@ const Home = () => {
   const skillsRef = useRef<HTMLDivElement>(null)
   const statsRef = useRef<HTMLDivElement>(null)
   const scrollIndicatorRef = useRef<HTMLDivElement>(null)
-  const [selectedCert, setSelectedCert] = useState<{ image: string; title: string } | null>(null)
-  
+
+
   // State for profile image
   const [profileImage, setProfileImage] = useState<string>("")
   const [isImageLoading, setImageLoading] = useState(true)
@@ -40,10 +35,9 @@ const Home = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
-        
+
         const data = await response.json()
-        console.log("Profile API Response:", data)
-        
+
         // Check different possible response structures
         if (data.data && Array.isArray(data.data) && data.data.length > 0 && data.data[0].profileImage) {
           setProfileImage(data.data[0].profileImage)
@@ -291,7 +285,7 @@ const Home = () => {
               <MousePointer className="h-5 w-5 animate-bounce" />
             </div>
           </section>
- 
+
         </main>
       </div>
     </PageTransition>
