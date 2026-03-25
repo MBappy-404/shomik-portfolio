@@ -8,14 +8,15 @@ import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
 const middleware = (req: NextRequest) => {
-  // read the "user" cookie
+  const { pathname } = req.nextUrl
   const userEmail = req.cookies.get("user")?.value
 
-  // only allow sara0810@gmail.com
-  if (userEmail !== "shomikujzaman@gmail.com") {
-    const loginUrl = req.nextUrl.clone()
-    loginUrl.pathname = "/login"
-    return NextResponse.redirect(loginUrl)
+  // Protect /dashboard paths
+  if (pathname.startsWith("/dashboard")) {
+    if (userEmail !== "shomikujzaman@gmail.com") {
+      const loginUrl = new URL("/login", req.url)
+      return NextResponse.redirect(loginUrl)
+    }
   }
 
   return NextResponse.next()

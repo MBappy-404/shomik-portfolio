@@ -42,7 +42,7 @@ const LoginPage = () => {
       const res = await createAdmin(data);
       
       if (res?.success) {
-        Cookies.set("user", res.data?.email);
+        Cookies.set("user", res.data?.email, { path: "/" });
         toast.success(res.message || "Login successful");
         router.push("/dashboard/manage-projects");
       } else {
