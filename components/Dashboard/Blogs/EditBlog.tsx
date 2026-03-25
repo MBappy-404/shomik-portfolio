@@ -128,11 +128,11 @@ const  EditBlogsModal =({
     <>
       {/* <Button onPress={onOpen}>Add New Blog</Button> */}
       <Modal
-        size="3xl"
+        size="5xl"
         isOpen={isOpen}
         backdrop="blur"
         onOpenChange={onOpenChange}
-        className=" h-[90vh] overflow-y-auto"
+        className="max-h-[95vh] overflow-y-auto"
       >
         <ModalContent>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -141,7 +141,7 @@ const  EditBlogsModal =({
             </ModalHeader>
             <ModalBody>
               <div className="flex justify-center mt-0">
-                <div className="w-full max-w-3xl space-y-4">
+                <div className="w-full max-w-4xl space-y-4">
                   {/* Blog Title & Upload Image (Same Row) */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <input

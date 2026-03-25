@@ -27,6 +27,7 @@ import {
   SubmitHandler,
 } from "react-hook-form";
 import { toast } from "sonner";
+import TextEditor from "../Blogs/TextEditor";
 
 const category = [
   { key: "SEO", label: "SEO" },
@@ -48,7 +49,9 @@ const EditProjectModal = ({
   onClose,
 }: EditProjectModalProps) => {
   const router = useRouter();
-  const { control, register, reset, handleSubmit, watch } =
+  const [content, setContent] = useState("");
+
+  const { control, register, reset, handleSubmit } =
     useForm<FieldValues>({
       defaultValues: {
         projectName: "",
@@ -59,6 +62,9 @@ const EditProjectModal = ({
       },
     });
 
+  const upload_preset = "ml_default";
+  const cloud_name = "dma4usxh0";
+
   useEffect(() => {
     if (project) {
       reset({
@@ -68,16 +74,57 @@ const EditProjectModal = ({
         projectDescription: project.projectDescription,
         projectImage: project.projectImage || null,
       });
+      setContent(project.projectDescription || "");
     }
   }, [project, reset]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const toastId = toast.loading("Updating project...");
+    const toastId = toast.loading("Updating project...", { duration: Infinity });
+    
+    let finalContent = content;
+    const imagesToUpload: { src: string; originalTag: string }[] = [];
+
+    const imgRegex = /<img[^>]+src="(data:image\/[^;]+;base64,[^"]+)"[^>]*>/g;
+    let match;
+    while ((match = imgRegex.exec(content)) !== null) {
+      imagesToUpload.push({ src: match[1], originalTag: match[0] });
+    }
+
+    for (const img of imagesToUpload) {
+      try {
+        const imageData = new FormData();
+        imageData.append("file", img.src);
+        imageData.append("upload_preset", upload_preset);
+        imageData.append("cloud_name", cloud_name);
+
+        const imageUploadResult = await fetch(
+          `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+          {
+            method: "POST",
+            body: imageData,
+          }
+        );
+
+        if (!imageUploadResult.ok) {
+          throw new Error("Embedded image upload failed");
+        }
+
+        const uploadedImage = await imageUploadResult.json();
+        const newImgTag = img.originalTag.replace(img.src, uploadedImage.url);
+        finalContent = finalContent.replace(img.originalTag, newImgTag);
+      } catch (error: any) {
+        console.error("Error uploading embedded image:", error);
+        toast.error("Failed to upload an embedded image.", { id: toastId });
+      }
+    }
+
     try {
       const formData = new FormData();
       const payload = {
-        ...data,
-        technologies: data.technologies,
+        projectName: data.projectName,
+        link: data.link,
+        category: data.category,
+        projectDescription: finalContent,
       };
 
       formData.append("data", JSON.stringify(payload));
@@ -85,18 +132,19 @@ const EditProjectModal = ({
         formData.append("file", data.projectImage[0]);
       }
 
-      console.log(data.projectImage);
-
       const res = await updateProject(formData, project._id);
       if (res?.success) {
         toast.success("Project updated!", { id: toastId });
         router.refresh();
         onClose();
       } else {
-        toast.error(res?.error?.message || "Update failed", { id: toastId });
+        toast.error(res?.message || "Update failed", { id: toastId });
       }
     } catch (err) {
+      console.error("Error updating project:", err);
       toast.error("Unexpected error", { id: toastId });
+    } finally {
+      toast.dismiss(toastId);
     }
   };
 
@@ -104,14 +152,15 @@ const EditProjectModal = ({
     <Modal
       isOpen={isOpen}
       onOpenChange={onOpenChange}
-      size="4xl"
+      size="5xl"
       backdrop="blur"
+      className="max-h-[95vh] overflow-y-auto"
     >
       <ModalContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalHeader>Update Project</ModalHeader>
           <ModalBody>
-            <div className="space-y-6">
+            <div className="space-y-6 max-w-4xl mx-auto">
               {/* Name & Image */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input
@@ -162,13 +211,10 @@ const EditProjectModal = ({
                 {/* Category */}
               </div>
 
-              {/* Description */}
-              <textarea
-                {...register("projectDescription")}
-                placeholder="Project Description"
-                rows={4}
-                className="w-full rounded-md px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm outline-none border border-gray-300 dark:border-gray-800 focus:bg-gray-50 dark:focus:border-gray-700"
-              />
+              {/* Description - Advanced Editor */}
+              <div>
+                <TextEditor content={content} setContent={setContent} />
+              </div>
             </div>
           </ModalBody>
 

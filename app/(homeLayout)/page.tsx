@@ -21,38 +21,11 @@ import Hero from "@/components/Hero/Hero"
 gsap.registerPlugin(ScrollTrigger)
 
 const Home = () => {
-  const heroRef = useRef<HTMLDivElement>(null)
   const skillsRef = useRef<HTMLDivElement>(null)
   const statsRef = useRef<HTMLDivElement>(null)
-  const scrollIndicatorRef = useRef<HTMLDivElement>(null)
   const [selectedCert, setSelectedCert] = useState<{ image: string; title: string } | null>(null)
 
   useEffect(() => {
-    // Hero animations
-    const tl = gsap.timeline()
-    tl.fromTo(".hero-badge", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" })
-      .fromTo(".hero-title", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" }, "-=0.4")
-      .fromTo(".hero-subtitle", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.6")
-      .fromTo(
-        ".hero-description",
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
-        "-=0.4",
-      )
-      .fromTo(".hero-buttons", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.4")
-      .fromTo(".hero-social", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.8, ease: "power3.out" }, "-=0.4")
-      .fromTo(
-        ".hero-image",
-        { opacity: 0, scale: 0.8, rotation: -5 },
-        { opacity: 1, scale: 1, rotation: 0, duration: 1.2, ease: "power3.out" },
-        "-=0.8",
-      )
-      .fromTo(
-        scrollIndicatorRef.current,
-        { opacity: 0, y: -20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", repeat: -1, yoyo: true },
-        "-=0.4",
-      )
 
     // Skills animation
     gsap.fromTo(
@@ -91,14 +64,6 @@ const Home = () => {
       },
     )
 
-    // Continuous hero image animation
-    gsap.to(".hero-image", {
-      y: -10,
-      duration: 3,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-    })
 
     // Parallax background effect
     gsap.to(".parallax-bg", {

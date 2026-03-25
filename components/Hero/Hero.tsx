@@ -60,28 +60,28 @@ const Home = () => {
 
     // Hero animations
     const tl = gsap.timeline()
-    tl.fromTo(".hero-badge", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" })
-      .fromTo(".hero-title", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" }, "-=0.4")
-      .fromTo(".hero-subtitle", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.6")
+    tl.fromTo(
+        ".hero-image",
+        { opacity: 0, scale: 1, y: 30 },
+        { opacity: 1, scale: 1, y: 0, duration: 1, ease: "power3.out" },
+        0,
+      )
+      .fromTo(".hero-badge", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, "0.1")
+      .fromTo(".hero-title", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "0.2")
+      .fromTo(".hero-subtitle", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, "0.3")
       .fromTo(
         ".hero-description",
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
-        "-=0.4",
+        { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
+        "0.4",
       )
-      .fromTo(".hero-buttons", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.4")
-      .fromTo(".hero-social", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.8, ease: "power3.out" }, "-=0.4")
-      .fromTo(
-        ".hero-image",
-        { opacity: 0, scale: 0.8, rotation: -5 },
-        { opacity: 1, scale: 1, rotation: 0, duration: 1.2, ease: "power3.out" },
-        "-=0.8",
-      )
+      .fromTo(".hero-buttons", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, "0.5")
+      .fromTo(".hero-social", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, "0.6")
       .fromTo(
         scrollIndicatorRef.current,
         { opacity: 0, y: -20 },
         { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", repeat: -1, yoyo: true },
-        "-=0.4",
+        "0.8",
       )
 
     // Skills animation
@@ -121,14 +121,6 @@ const Home = () => {
       },
     )
 
-    // Continuous hero image animation
-    gsap.to(".hero-image", {
-      y: -10,
-      duration: 3,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-    })
 
     // Parallax background effect
     gsap.to(".parallax-bg", {
@@ -185,7 +177,7 @@ const Home = () => {
                   <div className="space-y-6">
                     <Badge className="hero-badge w-fit bg-gradient-to-r from-primary/10 to-purple-600/10 text-primary border-primary/20 hover:bg-gradient-to-r hover:from-primary/20 hover:to-purple-600/20">
                       <Star className="w-3 h-3 mr-1" />
-                      Content Creator & SEO Specialist
+                      Content & Growth Strategist
                     </Badge>
 
                     <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl font-bold tracking-tighter">
@@ -204,8 +196,7 @@ const Home = () => {
                   </div>
 
                   <p className="hero-description text-sm md:text-base xl:text-lg 2xl:text-xl text-muted-foreground leading-relaxed">
-                    I'm a Creative Content Creator, SEO Specialist, and Visual Storyteller. I blend SEO strategy with
-                    visual creativity to help brands stand out in search and social.
+                    I help brands show up clearly and consistently across search and social using content, strategy, and visual storytelling.
                   </p>
 
                   <div className="hero-buttons flex flex-col sm:flex-row gap-4">
@@ -216,7 +207,7 @@ const Home = () => {
                     >
                       <Link href="/portfolio">
                         <Play className="mr-2 h-4 w-4" />
-                        View My Work
+                        View Selected Work
                         <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </Link>
                     </Button>
@@ -226,7 +217,7 @@ const Home = () => {
                       size="lg"
                       className="border-2 hover:bg-primary/5 border-gray-200 dark:border-gray-700 transition-all duration-300"
                     >
-                      <Link href="/contact">Let's Collaborate</Link>
+                      <Link href="/contact">Start a Conversation</Link>
                     </Button>
                   </div>
 
@@ -236,7 +227,7 @@ const Home = () => {
                 </div>
 
                 <div className="relative">
-                  <FloatingAnimation distance={20} duration={4}>
+                  <FloatingAnimation distance={8} duration={4}>
                     <div className="hero-image relative mx-auto aspect-square w-full max-w-lg">
                       {/* Gradient Ring */}
                       <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary via-purple-600 to-pink-600 p-1 animate-pulse">

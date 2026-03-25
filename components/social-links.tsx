@@ -32,7 +32,7 @@ const SocialLinks = ({ className }: SocialLinksProps) => {
     },
     {
       name: "Pinterest",
-      href: "https://www.pinterest.com/crazy_shomik/",
+      href: "https://www.pinterest.com/shomikujzaman/",
       icon: <FaPinterest className="h-5 w-5" />,
     },
     {

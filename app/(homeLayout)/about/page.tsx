@@ -12,13 +12,13 @@ const AboutPage = () => {
       <div className="min-h-screen flex flex-col justify-center items-center">
         <main className="flex-1 pt-16 w-full flex flex-col items-center justify-center">
           {/* Hero Section */}
-   
+
 
           <section className="py-12 md:py-16 lg:py-20 w-full container   bg-gray-100 dark:bg-gray-900">
             <div className=" px-4 md:px-6 flex flex-col items-center">
               <div className="flex flex-col items-center text-center space-y-4">
                 <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                  <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                     About Me
                   </h1>
                   <p className="mx-auto max-w-[700px] text-gray-500 dark:text-gray-400 md:text-xl">
@@ -51,24 +51,20 @@ const AboutPage = () => {
                       Shomik Ujzaman
                     </h2>
                     <div className="flex flex-wrap gap-2">
-                      <Badge>Content Creator</Badge>
+                      <Badge>Social Media Strategist </Badge>
+                      <Badge>Content Strategist</Badge>
                       <Badge>SEO Specialist</Badge>
-                      <Badge>Visual Storyteller</Badge>
                     </div>
                   </div>
                   <div className="space-y-4 text-muted-foreground">
                     <p>
-                      I'm a passionate digital creative who blends storytelling
-                      with SEO. My journey started with content creation and
-                      visual design, and now I'm focused on helping brands grow
-                      through organic search.
+                      I’m Shomik, a content strategist focused on SEO and visual storytelling. My work sits where search performance meets creative direction, helping brands build visibility while keeping their content clear and engaging.
                     </p>
                     <p>
-                      Whether it's crafting a high-ranking blog or producing an
-                      engaging reel, I focus on the sweet spot where visibility
-                      meets creativity. I work best at the intersection of
-                      content, performance, and aesthetics — creating strategies
-                      that get seen and remembered.
+                      Over time, I’ve developed a process that connects content strategy, social media, and organic growth. Whether it’s planning a content system, writing for search, or shaping visual narratives, I focus on work that brings consistent reach and meaningful engagement.
+                    </p>
+                    <p>
+                      I’m especially interested in building content that performs over time, not just in the moment. The goal is simple: create work that gets discovered, holds attention, and stays relevant.
                     </p>
                   </div>
                   <SocialLinks />

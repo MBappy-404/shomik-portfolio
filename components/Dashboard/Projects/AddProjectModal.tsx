@@ -21,8 +21,9 @@ import { Select, SelectItem } from "@heroui/select";
 import { SharedSelection } from "@heroui/system";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Controller, FieldValues, useForm } from "react-hook-form";
+import { Controller, FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
+import TextEditor from "../Blogs/TextEditor";
 
 const category = [
   { key: "SEO", label: "SEO" },
@@ -33,46 +34,85 @@ const category = [
 const AddProjectModal = () => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const { handleSubmit, control, register, reset } = useForm();
-  const [values, setValues] = useState<string[]>([]);
+  const [content, setContent] = useState("");
   const router = useRouter();
 
-  const handleSelectionChange = (keys: SharedSelection) => {
-    setValues(Array.from(keys) as string[]); // Convert Set to array
-  };
+  const upload_preset = "ml_default";
+  const cloud_name = "dma4usxh0";
 
-  const createProject = async (data: FieldValues) => {
-    const toastId = toast.loading("Adding Project...");
-    const formData = new FormData();
+  const createProject: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Adding Project...", { duration: Infinity });
+    
+    let finalContent = content;
+    const imagesToUpload: { src: string; originalTag: string }[] = [];
+
+    const imgRegex = /<img[^>]+src="(data:image\/[^;]+;base64,[^"]+)"[^>]*>/g;
+    let match;
+    while ((match = imgRegex.exec(content)) !== null) {
+      imagesToUpload.push({ src: match[1], originalTag: match[0] });
+    }
+
+    for (const img of imagesToUpload) {
+      try {
+        const imageData = new FormData();
+        imageData.append("file", img.src);
+        imageData.append("upload_preset", upload_preset);
+        imageData.append("cloud_name", cloud_name);
+
+        const imageUploadResult = await fetch(
+          `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+          {
+            method: "POST",
+            body: imageData,
+          }
+        );
+
+        if (!imageUploadResult.ok) {
+          throw new Error("Embedded image upload failed");
+        }
+
+        const uploadedImage = await imageUploadResult.json();
+        const newImgTag = img.originalTag.replace(img.src, uploadedImage.url);
+        finalContent = finalContent.replace(img.originalTag, newImgTag);
+      } catch (error: any) {
+        console.error("Error uploading embedded image:", error);
+        toast.error("Failed to upload an embedded image.", { id: toastId });
+      }
+    }
 
     const project = {
       projectName: data.projectName,
       link: data.link,
-      projectDescription: data.projectDescription,
+      projectDescription: finalContent,
       category: data.category,
-  
     };
 
+    const formData = new FormData();
     formData.append("data", JSON.stringify(project));
     formData.append("file", data.projectImage[0]);
-    console.log(Object.fromEntries(formData));
-    // console.log(data);
 
-    const res = await addProject(formData);
-    console.log(res);
-
-    if (res?.success) {
-      toast.success("Project added successfully", {
-        id: toastId,
-        duration: 2000,
-      });
-      router.refresh();
-      onClose();
-      reset();
-    } else {
-      toast.error("Failed to add project", {
-        id: toastId,
-        duration: 2000,
-      });
+    try {
+      const res = await addProject(formData);
+      if (res?.success) {
+        toast.success("Project added successfully", {
+          id: toastId,
+          duration: 2000,
+        });
+        router.refresh();
+        onClose();
+        reset();
+        setContent("");
+      } else {
+        toast.error(res?.message || "Failed to add project", {
+          id: toastId,
+          duration: 2000,
+        });
+      }
+    } catch (err) {
+      console.error("Error creating project:", err);
+      toast.error("Something went wrong!", { id: toastId });
+    } finally {
+      toast.dismiss(toastId);
     }
   };
 
@@ -89,14 +129,15 @@ const AddProjectModal = () => {
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        size="4xl"
+        size="5xl"
         backdrop="blur"
+        className="max-h-[95vh] overflow-y-auto"
       >
         <ModalContent>
           <form onSubmit={handleSubmit(createProject)}>
             <ModalHeader>Add New Project</ModalHeader>
             <ModalBody>
-              <div className="space-y-6">
+              <div className="space-y-6 max-w-4xl mx-auto">
                 {/* Name & Image */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <input
@@ -143,13 +184,10 @@ const AddProjectModal = () => {
                   />
                 </div>
 
-                {/* Description */}
-                <textarea
-                  {...register("projectDescription")}
-                  placeholder="Project Description"
-                  rows={4}
-                  className="w-full rounded-md px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm outline-none border border-gray-300 dark:border-gray-800 focus:bg-gray-50 dark:focus:border-gray-700"
-                />
+                {/* Description - Advanced Editor */}
+                <div>
+                   <TextEditor content={content} setContent={setContent} />
+                </div>
               </div>
             </ModalBody>
 

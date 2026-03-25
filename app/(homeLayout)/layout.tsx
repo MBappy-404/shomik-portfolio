@@ -16,10 +16,12 @@ import Footer from "@/components/footer";
 export const metadata: Metadata = {
   metadataBase: new URL("https://shomikujzaman.vercel.app"),
 
-  title: "Shomik Ujzaman | SEO Specialist | Brand Designer | Ghostwriter",
+  // Updated Title
+  title: "Social Media Strategist | Content Strategist | SEO Specialist",
 
+  // Updated Description to focus on you personally
   description:
-    "Shomik Ujzaman is an SEO Specialist and Creative Content Creator focused on search visibility, content strategy, and visual storytelling.",
+    "Shomik Ujzaman is an SEO Specialist and Creative Content Strategist focused on search visibility, digital growth, and visual storytelling.",
 
   keywords: [
     "Shomik Ujzaman",
@@ -28,20 +30,12 @@ export const metadata: Metadata = {
     "Crazy Artist Studio",
     "crazyshomik",
     "Shomik Ujzaman (@crazyshomik)",
-    "crazy artist",
     "SEO Expert",
     "Content Creator",
     "Content Strategist",
     "Search Engine Optimization",
     "Technical SEO",
-    "On Page SEO",
-    "Off Page SEO",
-    "Content Marketing",
     "Digital Marketing Specialist",
-    "SEO Consultant",
-    "Personal SEO Portfolio",
-    "SEO Case Studies",
-    "Search Visibility Expert",
   ],
 
   alternates: {
@@ -49,9 +43,9 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Shomik Ujzaman | SEO Specialist | Brand Designer | Ghostwriter",
+    title: "Social Media Strategist | Content Strategist | SEO Specialist",
     description:
-      "SEO-focused content creator helping brands improve visibility through clean strategy and strong content.",
+      "Official portfolio of Shomik Ujzaman. SEO-focused content creator helping brands improve visibility through clean strategy.",
     url: "https://shomikujzaman.vercel.app",
     siteName: "Shomik Ujzaman",
     images: [
@@ -62,12 +56,12 @@ export const metadata: Metadata = {
         alt: "Shomik Ujzaman",
       },
     ],
-    type: "website",
+    type: "profile",
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Shomik Ujzaman | SEO Specialist | Brand Designer | Ghostwriter",
+    title: "Social Media Strategist | Content Strategist | SEO Specialist",
     description:
       "SEO Specialist and Creative Content Creator focused on search growth.",
     images: ["/og-image.png"],
@@ -80,7 +74,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <html suppressHydrationWarning lang="en">
       <head>
-        <link rel="icon" href="https://png.pngtree.com/element_our/20190528/ourmid/pngtree-english-letter-s-english-icon-image_1157075.jpg" />
+        <link rel="icon" href="/favicon.ico" />
       </head>
       <body
         className={clsx(

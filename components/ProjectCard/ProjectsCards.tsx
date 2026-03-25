@@ -14,6 +14,8 @@ import EditProjectModal from "../Dashboard/Projects/EditProject";
 import { toast } from "sonner";
 import { Button } from "@heroui/button";
 import { TProject } from "@/types";
+import parse from "html-react-parser";
+import { stripHtmlTags } from "@/lib/utils";
 import {
   Modal,
   ModalBody,
@@ -61,30 +63,40 @@ const ProjectsCards = ({ project }: { project: TProject }) => {
             {project?.projectName}
           </h3>
           <hr className="my-3  border-t border-gray-300 dark:border-gray-600 " />
-          <p className="text-gray-400 dark:text-gray-400  md:text-base text-sm">
-            {project?.projectDescription?.length > 120
-              ? project?.projectDescription?.slice(0, 120) + "...."
-              : project?.projectDescription}
+          <p className="text-gray-400 dark:text-gray-400  md:text-base text-sm line-clamp-3">
+            {stripHtmlTags(project?.projectDescription)}
           </p>
           {pathname === "/dashboard/manage-projects" ? (
-            <div className="flex justify-between mt-4">
-              <Button
-                onPress={onOpen}
-                color="primary"
-                className="text-base text-gray-900 dark:text-gray-100 px-10"
-                variant="flat"
-              >
-                Edit
-              </Button>
+            <div className="flex flex-col gap-2 mt-4">
+              <div className="flex justify-between">
+                <Button
+                  onPress={onOpen}
+                  color="primary"
+                  className="text-base text-gray-900 dark:text-gray-100 px-10"
+                  variant="flat"
+                >
+                  Edit
+                </Button>
 
-              <Button
-                onPress={onDeleteOpen}
-                className="text-base text-gray-900 dark:text-gray-100 px-8"
-                color="danger"
-                variant="flat"
-              >
-                Delete
-              </Button>
+                <Button
+                  onPress={onDeleteOpen}
+                  className="text-base text-gray-900 dark:text-gray-100 px-8"
+                  color="danger"
+                  variant="flat"
+                >
+                  Delete
+                </Button>
+              </div>
+              {project.link && (
+                <a 
+                  href={project.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xs text-primary hover:underline text-center mt-1"
+                >
+                  Live Link: {project.link}
+                </a>
+              )}
             </div>
           ) : (
             <div className="mt-3">
