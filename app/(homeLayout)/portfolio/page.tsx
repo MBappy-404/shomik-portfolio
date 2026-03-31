@@ -47,6 +47,8 @@ const PortfolioPage = () => {
         return "secondary";
       case "visual":
         return "outline";
+      case "case study":
+        return "outline";
       default:
         return "default";
     }
