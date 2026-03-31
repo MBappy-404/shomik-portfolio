@@ -128,9 +128,9 @@ const PortfolioPage = () => {
                         </div>
                         <CardContent className="p-4 flex-grow">
                           <div className="flex justify-between items-start mb-2">
-                            <h3 className="font-bold text-lg md:text-xl xl:text-2xl group-hover:text-primary transition-colors">{project.projectName}</h3>
+                            <h3 className="font-bold text-lg md:text-xl   group-hover:text-primary transition-colors">{project.projectName}</h3>
                             {project.category && (
-                              <Badge variant={getBadgeVariant(project.category)} className="text-xs md:text-sm xl:text-base">
+                              <Badge variant={getBadgeVariant(project.category)} className="text-xs md:text-sm  ">
                                 {project.category}
                               </Badge>
                             )}
