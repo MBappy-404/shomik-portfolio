@@ -96,7 +96,7 @@ const ProjectsPage = () => {
                           />
                         </div>
                         <div className="p-5 md:p-6 flex flex-col flex-1">
-                          <p className="text-xs font-medium text-primary uppercase tracking-wider mb-1.5">
+                          <p className="text-xs  text-primary uppercase mb-1.5">
                             {project.category || "General"}
                           </p>
                           <h2 className="text-lg md:text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
