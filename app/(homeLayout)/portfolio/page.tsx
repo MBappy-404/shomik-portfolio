@@ -171,11 +171,20 @@ const PortfolioPage = () => {
                           <CardContent className="p-4 flex-grow">
                              <div className="flex justify-between items-start mb-2">
                               <h3 className="font-bold text-lg md:text-xl xl:text-2xl group-hover:text-primary transition-colors">{project.projectName}</h3>
-                              {project.category && (
-                                <Badge variant={getBadgeVariant(project.category)} className="text-xs md:text-sm xl:text-base">
-                                  {project.category}
-                                </Badge>
-                              )}
+ {project.category && (
+  <span
+    className="
+      text-xs md:text-sm 
+      px-2 md:px-3 py-1 
+      border border-gray-300 
+      rounded-full 
+      text-gray-700
+      inline-block
+    "
+  >
+    {project.category}
+  </span>
+)}
                             </div>
                             <p className="text-sm md:text-base xl:text-lg text-muted-foreground line-clamp-2">
                               {project.projectDescription?.replace(/<[^>]*>/g, "") || "No description available."}
