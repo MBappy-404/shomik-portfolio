@@ -33,6 +33,7 @@ const category = [
   { key: "SEO", label: "SEO" },
   { key: "Content", label: "Content" },
   { key: "Visual", label: "Visual" },
+  { key: "Case Study", label: "Case Study" },
 ];
 
 interface EditProjectModalProps {
