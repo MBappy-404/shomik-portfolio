@@ -134,7 +134,7 @@ const PortfolioPage = () => {
                             {project.category && (
   <span
     className="
-      text-xs md:text-sm 
+      text-xs 
       px-2 md:px-3 py-1 
       border border-gray-300 
       rounded-full 
