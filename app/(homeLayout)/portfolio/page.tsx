@@ -132,10 +132,19 @@ const PortfolioPage = () => {
                           <div className="flex justify-between items-start mb-2">
                             <h3 className="font-bold text-lg md:text-xl   group-hover:text-primary transition-colors">{project.projectName}</h3>
                             {project.category && (
-                              <Badge variant={getBadgeVariant(project.category)} className="text-xs md:text-sm  ">
-                                {project.category}
-                              </Badge>
-                            )}
+  <span
+    className="
+      text-xs md:text-sm 
+      px-2 md:px-3 py-1 
+      border border-gray-300 
+      rounded-full 
+      text-gray-700
+      inline-block
+    "
+  >
+    {project.category}
+  </span>
+)}
                           </div>
                           <p className="text-sm md:text-base text-muted-foreground line-clamp-2">
                             {project.projectDescription?.replace(/<[^>]*>/g, "") || "No description available."}
